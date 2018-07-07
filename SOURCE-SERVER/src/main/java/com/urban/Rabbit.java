@@ -62,6 +62,12 @@ public class Rabbit {
         }
     }
 
+    public void publishQueue(String queue, String message) throws IOException {
+
+        this.channel.queueDeclare(queue, false, false, false, null);
+        channel.basicPublish("", queue, null, message.getBytes("UTF-8"));
+        System.out.println(" - Enviado '" + message + "'");
+    }
 }
 
 // class SubscriberThread implements Runnable {

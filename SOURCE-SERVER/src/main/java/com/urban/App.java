@@ -19,7 +19,7 @@ import com.rabbitmq.client.Envelope;
 public class App {
 
     public static void main(String[] args) {
-        String filename = "/home/wison/dados_02.csv";
+        String filename = "../../dados_02.csv";
         String rabbitAddress = "localhost";
         EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider();
         engine.getEPAdministrator().getConfiguration().addEventType(BusEvent.class);
@@ -27,7 +27,8 @@ public class App {
         try {
             Rabbit rmq = new Rabbit(rabbitAddress);
             Channel channel = rmq.getChannel();
-            Hashtable<String, Integer> mapBus = new Hashtable<String, Integer>();
+            Hashtable<String, Integer> mapBus = new Hashtable<String, Integer>(); // todos bus que estão sendo
+                                                                                  // publicados
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
@@ -49,7 +50,7 @@ public class App {
                         });
                         mapBus.put(message, 1);
                     } else {
-                        System.out.println("- já está sendo publicado: " + message);
+                        System.out.println("- ignorando já está sendo publicado: " + message);
                     }
 
                 }
@@ -58,12 +59,10 @@ public class App {
 
             BufferedReader buffer = new BufferedReader(new FileReader(filename));
             String line;
-            GenerateEvent ge = new GenerateEvent(engine, 2);
+            GenerateEvent ge = new GenerateEvent(engine, rmq, 1);
             new Thread(ge).start();
             buffer.readLine(); // skip first line
             while ((line = buffer.readLine()) != null) {
-                // System.out.println("Onibus: " + line.split(",")[0]);
-                // TODO: publicar onibus em fila especial
                 ge.addEvent(line);
             }
 
