@@ -19,8 +19,14 @@ import com.rabbitmq.client.Envelope;
 public class App {
 
     public static void main(String[] args) {
-        String filename = "../../dados_02.csv";
-        String rabbitAddress = "localhost";
+        String filename = System.getenv("CSVPATH");
+        if (filename == null)
+            filename = "../../dados_02.csv";
+
+        String rabbitAddress = System.getenv("RABBITMQADDR");
+        if (rabbitAddress == null)
+            rabbitAddress = "localhost";
+
         EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider();
         engine.getEPAdministrator().getConfiguration().addEventType(BusEvent.class);
 
