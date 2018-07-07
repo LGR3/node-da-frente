@@ -2,8 +2,8 @@ const amqp = require('amqplib/callback_api')
 const connect = require('./connect').connect
 
 
-const subscribe = async (exname, callback, durable = false) => {
-    /** Se inscreve em uma exchange fanout e cria uma fila exclusiva nela */
+const subscribe = async (exname, callback, durable = false, noAck = true) => {
+    /** Se inscreve em uma exchange fanout */
     let [conn, channel] = await connect(process.env.BROKER_ADDRESS || 'localhost')
 
     channel.assertExchange(exname, 'fanout', { durable: durable })
@@ -22,7 +22,22 @@ const subscribe = async (exname, callback, durable = false) => {
         // console.log(`[${exname}]: ${message}`)
         callback(message)
 
-    }, { noAck: true }) //diz se precisa de ack para garantir que não vai perder a mensagem por indisponibilidade de quem a pegou
+    }, { noAck: noAck }) //diz se precisa de ack para garantir que não vai perder a mensagem por indisponibilidade de quem a pegou
 
 }
-module.exports = subscribe
+exports.subscribe = subscribe
+
+const subscribeQueue = async (queuename, callback, noAck = false) => {
+    /** Se inscreve em uma queue */
+    let [conn, channel] = await connect(process.env.BROKER_ADDRESS || 'localhost')
+
+
+    channel.assertQueue(queuename, { durable: false })
+    
+    channel.consume(queuename, (msg) => {
+        let message = msg.content.toString()
+        callback(message)
+    }, { noAck: noAck })
+
+}
+exports.subscribeQueue = subscribeQueue
