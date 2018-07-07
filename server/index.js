@@ -24,10 +24,13 @@ wsServer.on('request', function (request) {
         subscribe(message, (_row) => {
             console.log(_row)
             const row = _row.split(';');
-            const _utm = utm.toLatLon(row[6], row[7], 25, 'l');
-            row[6] = _utm.latitude;
-            row[7] = _utm.longitude;
-            connection.send(row.join(';'));
+            if (row[6] > 0 && row[7] > 0) {
+                const _utm = utm.toLatLon(row[6], row[7], 25, 'l');
+                row[6] = _utm.latitude;
+                row[7] = _utm.longitude;
+                connection.send(row.join(';'));
+
+            }
         })
     });
 });
