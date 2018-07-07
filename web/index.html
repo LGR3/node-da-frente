@@ -79,7 +79,7 @@
                             zoom: 14,
                             center: new google.maps.LatLng(-8.0374956,-34.9179265),
                         });
-                        this.websocket = new WebSocket('ws://html5rocks.websocket.org/echo');
+                        this.websocket = new WebSocket('ws://localhost');
                         connection.onopen = () => {
                             connection.send(this.id_onibus);
                         };
