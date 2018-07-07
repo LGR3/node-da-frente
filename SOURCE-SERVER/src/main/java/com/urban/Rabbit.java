@@ -66,7 +66,6 @@ public class Rabbit {
 
         this.channel.queueDeclare(queue, false, false, false, null);
         channel.basicPublish("", queue, null, message.getBytes("UTF-8"));
-        System.out.println(" - Enviado '" + message + "'");
     }
 }
 
