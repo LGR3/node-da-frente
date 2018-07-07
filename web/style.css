@@ -1,0 +1,91 @@
+body{
+    background-color: #eee;
+}
+
+#mapa{
+    height: 500px;
+    margin: 10px;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+.overbg{
+    position: fixed;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: #ffc107;
+    opacity: 0.94;
+}
+
+
+
+#custom-search-input {
+    margin:0;
+    margin-top: 10px;
+    padding: 0;
+}
+
+#custom-search-input .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#custom-search-input button {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 2px 5px;
+    margin-top: 2px;
+    position: relative;
+    left: -28px;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color:#ffc107;
+}
+
+.search-query:focus + button {
+    z-index: 3;   
+}
+
+.select2-container {
+    width:100%;   
+  }
+   
+  .select2-container a.select2-choice {
+    font-size: 14px;
+    height: 38px;
+    padding: 8px 12px;
+    line-height: 1.42857;
+  }
+   
+  .select2-container .select2-choice .select2-arrow {
+    padding-top:6px;
+  }
+
+.select2 > span.selection,
+.select2-selection,
+.select2-selection__rendered {
+    height: 50px !important;
+}
+
+.select2-selection__rendered,
+.select2-selection__arrow {
+    margin-top: 10px !important;
+}
