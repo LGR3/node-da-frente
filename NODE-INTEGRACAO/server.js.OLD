@@ -1,59 +1,14 @@
 //
-// # SimpleServer Do C9.IO
+// # SimpleServer
+//
 // A simple chat server using Socket.IO, Express, and Async.
 //
-var WebSocketServer = require('websocket').server;
 var http = require('http');
 var path = require('path');
 
-// var async = require('async');
-// var socketio = require('socket.io');
-// var express = require('express');
-
-
-var server = http.createServer(function(request, response) {
-  // process HTTP request. Since we're writing just WebSockets
-  // server we don't have to implement anything.
-});
-server.listen(80, function() { });
-
-// create the server
-wsServer = new WebSocketServer({
-  httpServer: server
-});
-
-
-
-// WebSocket server
-wsServer.on('request', function(request) {
-  var connection = request.accept(null, request.origin);
-
-  // This is the most important callback for us, we'll handle
-  // all messages from users here.
-  connection.on('message', function(message) {
-    if (message.type === 'utf8') {
-      // process WebSocket message
-    }
-  });
-
-  connection.on('close', function(connection) {
-    // close user connection
-  });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
+var async = require('async');
+var socketio = require('socket.io');
+var express = require('express');
 
 //
 // ## SimpleServer `SimpleServer(obj)`
@@ -127,5 +82,3 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function() 
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
-
-*/
